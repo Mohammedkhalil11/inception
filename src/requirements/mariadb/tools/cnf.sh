@@ -1,17 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
-#echo "hhhh";
 
-service mysql start 
+service mariadb start
 
-echo "CREATE DATABASE IF NOT EXISTS db ;" > db1.sql
-echo "CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'pass' ;" >> db1.sql
-echo "GRANT ALL PRIVILEGES ON db.* TO 'user'@'%' ;" >> db1.sql
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;" >> db1.sql
-echo "FLUSH PRIVILEGES;" >> db1.sql
+sleep 2
+mariadb -e "CREATE DATABASE IF NOT EXISTS db ;"
+mariadb -e "CREATE USER IF NOT EXISTS 'db_user'@'%' IDENTIFIED BY 'user_passwd' ;" 
+mariadb -e "GRANT ALL PRIVILEGES ON db.* TO 'db_user'@'%' ;" 
 
-mysql -u root< db1.sql
-
-kill $(cat /var/run/mysqld/mysqld.pid)
-
-mysqld
+mariadb -e "FLUSH PRIVILEGES;" 
+service mariadb stop
+sleep 2
+mysqld_safe
+ 
