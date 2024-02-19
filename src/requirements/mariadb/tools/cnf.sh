@@ -6,7 +6,7 @@ then
 else
 
     service mariadb start
-    sleep 2
+    sleep 1
     mariadb -e "CREATE DATABASE IF NOT EXISTS db ;"
     mariadb -e "CREATE USER IF NOT EXISTS 'db_user'@'%' IDENTIFIED BY 'user_passwd' ;" 
     mariadb -e "GRANT ALL PRIVILEGES ON db.* TO 'db_user'@'%' ;" 
