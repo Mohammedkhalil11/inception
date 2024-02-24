@@ -12,4 +12,5 @@ COPY conf/www.conf  /etc/php/7.4/fpm/pool.d/www.conf
 COPY tools/scr.sh .
 #COPY conf/wp-config.php	.
 RUN chmod 755 scr.sh
+EXPOSE 9000
 CMD ["./scr.sh"]

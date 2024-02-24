@@ -7,4 +7,5 @@ COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
 RUN chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
 ADD tools/c.sh .
 RUN chmod 755 c.sh
+EXPOSE 3306
 CMD ["./c.sh"]

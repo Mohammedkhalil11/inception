@@ -7,4 +7,5 @@ RUN mkdir -p /etc/nginx/ssl
 COPY tools/script.sh .
 RUN chmod 755 script.sh
 COPY conf/nginx.template .
+EXPOSE 443
 CMD [ "./script.sh" ]

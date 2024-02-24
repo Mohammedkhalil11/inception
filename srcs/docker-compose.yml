@@ -1,12 +1,14 @@
-version : '3'
+version : '3.7'
 services:
   mariadb:
+      image: mariadb
       build:
         context: ./requirements/mariadb/
       volumes:
         - database:/var/lib/mysql
       restart : always
       container_name : mariadb
+      hostname : mariadb
       networks:
         - inception
       init : true
@@ -14,6 +16,7 @@ services:
         - ./.env
 
   wordpress:
+      image: wordpress
       build:
         context: ./requirements/wordpress/
       restart : always
@@ -28,6 +31,7 @@ services:
       env_file:
         - ./.env
   nginx:
+      image: nginx
       build:
           context: ./requirements/nginx/
       restart : always
@@ -38,7 +42,6 @@ services:
         - wordpress
       ports:
         - 443:443
-        - 80:80
       networks:
         - inception
       init : true
