@@ -2,48 +2,37 @@ version : '3'
 services:
   mariadb:
       build:
-        context: ./src/requirements/mariadb/
+        context: ./requirements/mariadb/
       volumes:
         - database:/var/lib/mysql
       restart : always
       container_name : mariadb
-      environment:
-        MYSQL_DATABASE: db
-        MYSQL_USER: db_user
-        MYSQL_PASSWORD: user_passwd
-        MYSQL_ROOT_PASSWORD: 'root_passwd'
-        MYSQL_ALLOW_EMPTY_PASSWORD: 0
       networks:
         - inception
       init : true
       env_file:
-        - .env
+        - ./.env
 
   wordpress:
       build:
-        context: ./src/requirements/wordpress/
+        context: ./requirements/wordpress/
       restart : always
       volumes:
-        - ./site:/var/www/html
+        - site:/var/www/html
       container_name : wordpress
-      environment:
-        WORDPRESS_DB_HOST: mariadb
-        WORDPRESS_DB_NAME: db
-        WORDPRESS_DB_USER: db_user
-        WORDPRESS_DB_PASSWORD: user_passwd
       networks:
         - inception
       depends_on :
         - mariadb
       init : true
       env_file:
-        - .env
+        - ./.env
   nginx:
       build:
-          context: ./src/requirements/nginx/
+          context: ./requirements/nginx/
       restart : always
       volumes:
-        - ./site:/var/www/html
+        - site:/var/www/html
       container_name : nginx
       depends_on :
         - wordpress
@@ -54,21 +43,21 @@ services:
         - inception
       init : true
       env_file:
-        - .env
+        - ./.env
 volumes:
   database:
       driver: local
       driver_opts:
         type: none
-        device: /home/kali/data/dbvol
+        device: /home/mokhalil/data/dbvol
         o: bind
   site:
     driver: local
     driver_opts:
       type: none
-      device: /home/kali/data/wpvol
+      device: /home/mokhalil/data/wpvol
       o: bind
 networks:
   inception:
-    #name: inception
-    #driver: bridge
+    name: inception
+    driver: bridge

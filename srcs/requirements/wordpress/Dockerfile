@@ -9,7 +9,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && chmod 775 wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 COPY conf/www.conf  /etc/php/7.4/fpm/pool.d/www.conf
-COPY tools/script.sh .
+COPY tools/scr.sh .
 #COPY conf/wp-config.php	.
-RUN chmod 755 script.sh
-CMD ["./script.sh"]
+RUN chmod 755 scr.sh
+CMD ["./scr.sh"]
